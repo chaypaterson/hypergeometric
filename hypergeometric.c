@@ -25,7 +25,7 @@
  * might require n+1 multiplications to calculate a_n * x^n.
  */
 
-typedef double real;
+typedef double real; // TODO real could be fixed point? not floating point
 typedef unsigned int index;
 typedef real (*function)(index n);
 
@@ -61,16 +61,27 @@ real atan_recurrence(index n) {
 }
 
 int main(void) {
-    // calculate atan(1) as a test:
-    real x = 1.0;
-    hyper_state atan1 = construct(0, x, atan_recurrence);
+    // calculate pi from Machin's formula as a test:
+    real error = 1e-14 / 4; 
+    // any lower and we run into problems with finite precision and roundoff
+    // TODO really "real" should denote a fixed precision number and not a
+    // floating point number.
 
-    real error = 1e-10 / 4;
-    while (fabs(atan1.term) > error) hyper_step(&atan1, x * x);
+    real one_fifth = 0.2;
+    hyper_state first_part = construct(0, one_fifth, atan_recurrence);
 
-    printf("term: %1.20f \n", atan1.term);
-    printf("atan(1): %1.20f \n", atan1.total_F);
-    printf("and pi is: %1.20f \n", 4 * atan1.total_F);
+    while (fabs(first_part.term) > error) 
+        hyper_step(&first_part, one_fifth * one_fifth);
+
+    real one_239th = 1.0 / 239;
+    hyper_state next_part = construct(0, one_239th, atan_recurrence);
+
+    while (fabs(next_part.term) > error) 
+        hyper_step(&next_part, one_239th * one_239th);
+
+    real piover4 = 4 * first_part.total_F - next_part.total_F;
+
+    printf("and pi is: %1.20f \n", 4 * piover4);
     printf("error: %1.20f \n", 4 * error);
 
     return 0;
