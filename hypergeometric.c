@@ -9,7 +9,10 @@ hyper_state hyper_construct(index initial_n, real first_term, function recur) {
     iterator.n = initial_n;
     iterator.term = first_term;
     iterator.total = first_term;
-    iterator.recur = recur;
+    iterator.recur = recur; // TODO: do we really have a good reason to change
+    // the recurrence relation in the middle of a computation? Maybe we should
+    // encapsulate hyper_state as an opaque pointer and make the constructor a
+    // void-returning method.
 
     return iterator;
 }
