@@ -13,6 +13,6 @@ int main(void) {
     hyper_state euler_state = hyper_construct(0, x, exp_recur);
     while (fabs(euler_state.term) > error) hyper_step(&euler_state, x);
 
-    printf("%1.20f \n", euler_state.total_F);
+    printf("%1.20f \n", euler_state.total);
     return 0;
 }

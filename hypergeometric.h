@@ -17,7 +17,7 @@ typedef real (*function)(index n);
 typedef struct {
     index n;
     real term;
-    real total_F;
+    real total;
     function recur;
 } hyper_state;
 

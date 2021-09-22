@@ -18,15 +18,15 @@ where A and B are polynomials.
 
 This suggests an efficient way to calculate them. In a struct:
 
-    Store the value of the most recent term, a_n * x.
-    Store the total accumulated value of the series so far, total_F.
-    Store n.
-    For convenience, store a pointer to A(n)/B(n), the recurrence relation.
+    1. Store the value of the most recent term, a_n * x.
+    2. Store the total accumulated value of the series so far, total_F.
+    3. Store n.
+    4. For convenience, store a pointer to A(n)/B(n), the recurrence relation.
 
-To get the next term, calculate
+To get the next term, calculate:
 
      term *= x * A(n) / B(n)
-     total_f += term
+     total += term
      n++
 
 We can put this iteration step in either a for or a while loop.

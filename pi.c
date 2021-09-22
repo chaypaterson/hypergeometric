@@ -28,7 +28,7 @@ int main(void) {
     while (fabs(next_part.term) > error) 
         hyper_step(&next_part, one_239th * one_239th);
 
-    real piover4 = 4 * first_part.total_F - next_part.total_F;
+    real piover4 = 4 * first_part.total - next_part.total;
 
     printf("and pi is: %1.20f \n", 4 * piover4);
     printf("error: %1.20f \n", 4 * error);
